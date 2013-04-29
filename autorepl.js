@@ -27,7 +27,8 @@ function js_filter(fn) { return filter(/\.js$/, fn) }
 
 /** Now for the logic */
 
-watch(/* current dir */ path.resolve(__dirname),
+console.log('Starting to watch ' + process.cwd());
+watch(/* current dir */ process.cwd(),
       /* listener    */ js_filter(staticAnalysis));
 
 repl.start(" >> ", null, null, null, true);
