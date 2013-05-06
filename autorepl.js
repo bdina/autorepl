@@ -1,29 +1,44 @@
 #! /usr/local/bin/node
 
+// Standard Node.js Library Require
 var repl  = require('repl');
 var fs    = require('fs');
-var watch = require('node-watch');
 var path  = require('path');
 var proc  = require('child_process');
+
+// 3rd Party Library Require
+var watch = require('node-watch');
 
 /** Functions */
 
 function staticAnalysis(file) {
+  var handleJshint = function(err, stdout, stderr) {
+    console.log(stdout);
+    if ( err === null ) {
+        proc.exec('growlnotify -name "JSHint" -m "Linting found no errors" Success');
+        proc.exec('/usr/local/bin/ctags -f ' + process.cwd() + '/tags .');
+    } else {
+        proc.exec('growlnotify -name "JSHint" -m "Linting found errors" Failure');
+    }
+  };
+
   console.log('detected event on file [' + file + ']\n');
   fs.exists(file, function(exists) {
     if ( exists ) {
-      proc.exec('/usr/local/bin/jshint ' + file, function(err, stdout, stderr) { console.log(stdout); });
+      proc.exec('jshint ' + file, handleJshint);
     } else {
       console.log('file was DESTROYED');
     }
   });
 }
 
+// Function called by the watch code to determine if the file needs watching
 function filter(regex, fn) {
-  return function(file) { if (regex.test(file)) { fn(file); } }
+  return function(file) { if (regex.test(file)) { fn(file); } };
 }
 
-function js_filter(fn) { return filter(/\.js$/, fn) }
+// Composing the filter
+function js_filter(fn) { return filter(/\.js$/, fn); }
 
 /** Now for the logic */
 
