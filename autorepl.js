@@ -15,9 +15,11 @@ function staticAnalysis(file) {
   var handleJshint = function(err, stdout, stderr) {
     console.log(stdout);
     if ( err === null ) {
+        console.log('No errors found.')
         proc.exec('growlnotify -name "JSHint" -m "Linting found no errors" Success');
         proc.exec('/usr/local/bin/ctags -f ' + process.cwd() + '/tags .');
     } else {
+        console.log('Errors found!')
         proc.exec('growlnotify -name "JSHint" -m "Linting found errors" Failure');
     }
   };
