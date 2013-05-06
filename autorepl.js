@@ -35,17 +35,18 @@ function staticAnalysis(file) {
 }
 
 // Function called by the watch code to determine if the file needs watching
-function filter(regex, fn) {
-  return function(file) { if (regex.test(file)) { fn(file); } };
+function filter(incl, excl, fn) {
+  return function(file) { if (!excl.test(file) && incl.test(file)) { fn(file); } };
 }
 
 // Composing the filter
-function js_filter(fn) { return filter(/\.js$/, fn); }
+function incl() { return /\.js$/; }
+function excl() { return /(node_modules)/; }
 
 /** Now for the logic */
 
 console.log('Starting to watch ' + process.cwd());
 watch(/* current dir */ process.cwd(),
-      /* listener    */ js_filter(staticAnalysis));
+      /* listener    */ filter(incl(), excl(), staticAnalysis));
 
 repl.start(" >> ", null, null, null, true);
