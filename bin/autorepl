@@ -1,0 +1,11 @@
+#! /usr/local/bin/node
+
+// Standard Node.js Library Require
+const repl       = require('repl'),
+      fs-notify  = require('../lib/fs-notify'),
+      JAVASCRIPT = require('../lib/fs-notify').Types.JAVASCRIPT()
+
+fs-notify.lint_js(process.cwd())
+
+util.puts('Starting to watch ' + process.cwd())
+repl.start(" >> ", null, null, null, true)
