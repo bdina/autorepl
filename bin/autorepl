@@ -2,8 +2,9 @@
 
 // Standard Node.js Library Require
 const repl     = require('repl'),
+      util     = require('util'),
       lint_js  = require('../lib/fs-notify').lint_js
 
 lint_js(process.cwd())
 util.puts('Starting to watch ' + process.cwd())
-repl.start(" >> ", null, null, null, true)
+repl.start(' >> ', null, null, null, true)
