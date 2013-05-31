@@ -1,0 +1,17 @@
+{
+    "name": "AutoREPL",
+    "description": "Automagically lints and generates tags for well-formed programs",
+    "version": "0.0.1",
+    "author": {
+        "name": "Bryan Dina <bdina@dyn.com>"
+    },
+    "homepage": "https://github.corp.dyndns.com/bdina",
+    "repository": { 
+        "type": "git",
+        "url": "https://github.corp.dyndns.com/bdina/pika"
+    },
+    "main": "./bin/autorepl",
+    "engine": {
+        "node": "0.10.*"
+    }
+}
