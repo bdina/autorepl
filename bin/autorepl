@@ -1,10 +1,16 @@
 #! /usr/local/bin/node
 
 // Standard Node.js Library Require
-const repl     = require('repl'),
+const fs       = require('fs'),
+      repl     = require('repl'),
       util     = require('util'),
       lint_js  = require('../lib/fs-notify').lint_js
 
-lint_js(process.cwd())
-util.puts('Starting to watch ' + process.cwd())
+const cwd = process.cwd()
+const rc  = cwd + '.autoreplrc'
+
+const lint_dir = fs.existsSync(rc) ? cwd + require(rc).src_dir : cwd
+
+lint_js(lint_dir)
+util.puts('Starting to watch ' + lint_dir)
 repl.start(' >> ', null, null, null, true)
