@@ -7,9 +7,10 @@ const fs       = require('fs'),
       lint_js  = require('../lib/fs-notify').lint_js
 
 const cwd = process.cwd()
-const rc  = cwd + '.autoreplrc'
+const rc  = cwd + '/.autoreplrc'
 
-const lint_dir = fs.existsSync(rc) ? cwd + require(rc).src_dir : cwd
+const lint_dir = fs.existsSync(rc) ?
+    cwd + '/' + JSON.parse(fs.readFileSync(rc)).src : cwd
 
 lint_js(lint_dir)
 util.puts('Starting to watch ' + lint_dir)
