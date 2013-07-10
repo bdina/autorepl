@@ -13,5 +13,5 @@ const lint_dir = fs.existsSync(rc) ?
     cwd + '/' + JSON.parse(fs.readFileSync(rc)).src : cwd
 
 lint_js(lint_dir)
-util.puts('Starting to watch ' + lint_dir)
 repl.start(' >> ', null, null, null, true)
+util.puts('\nStarting to watch ' + lint_dir)
