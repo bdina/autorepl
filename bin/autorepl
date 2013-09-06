@@ -2,7 +2,6 @@
 
 // Standard Node.js Library Require
 const fs       = require('fs'),
-      repl     = require('repl'),
       util     = require('util'),
       lint_js  = require('../lib/fs-notify').lint_js
 
@@ -13,5 +12,4 @@ const lint_dir = fs.existsSync(rc) ?
     cwd + '/' + JSON.parse(fs.readFileSync(rc)).src : cwd
 
 lint_js(lint_dir)
-repl.start(' >> ', null, null, null, true)
 util.puts('\nStarting to watch ' + lint_dir)
